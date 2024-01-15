@@ -6,8 +6,7 @@ import tkinter.font as font
 from tkinter import Canvas
 import requests
 import sys
-from flask import Flask, render_template, request
-app = Flask(__name__)
+
 
 
 colors = ["black", "white", "red", "green", "yellow", "blue", "brown", "orange", "pink", "purple", "grey"]
@@ -72,14 +71,13 @@ class ChatBot:
         weather_data = get_weather(api_key, city)
         temperature = weather_data["main"]["temp"]
         description = weather_data["weather"][0]["description"]
-        if self.self_response == " ":
+        if self.user_response == " ":
             pass
         
-        if 'weather' in self.user_response:
+        elif 'weather' in self.user_response:
             self.bot_response = "Look out the window."
             return(f"The weather in {city} today is {description} with a temperature of {temperature}°F.")
-        if self.user_response == "":
-            pass
+        
 
         elif "bye" in self.user_response or "exit" in self.user_response:
            self.bot_response = "Goodbye! It was nice chatting with you!"
@@ -273,27 +271,7 @@ def main():
 
     root.mainloop()
 
+# Call the main function to start the application
+main()
 
-class ChatBotWeb(ChatBot):
-    def __init__(self):
-        super().__init__()
 
-    def ask_question_web(self, question):
-        self.ask_question(question)
-        return self.generate_response()
-
-chatbot_web = ChatBotWeb()
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/ask', methods=['POST'])
-def ask():
-    if request.method == 'POST':
-        user_question = request.form['user_question']
-        bot_response = chatbot_web.ask_question_web(user_question)
-        return render_template('index.html', user_question=user_question, bot_response=bot_response)
-
-if __name__ == "__main__":
-    app.run(debug=True)
