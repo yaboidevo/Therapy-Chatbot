@@ -154,7 +154,7 @@ class ChatBot:
         elif "thank" in self.user_response or "thanks" in self.user_response:
             self.bot_response = "No problem. Anything else?"
         elif "your name" in self.user_response or "who are you" in self.user_response:
-            self.bot_response = "My name is Dev AI."
+            self.bot_response = "My name is Buddy Bot."
         elif  "your favorite color" in self.user_response or "best color" in self.user_response:
             self.bot_response = "Blue, what about you?"
         elif any(color in self.user_response for color in colors):
@@ -208,9 +208,9 @@ class ChatBot:
 class ChatBotGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Dev AI Chatbot")
+        self.root.title("Buddy Bot")
         self.chatbot = ChatBot()
-
+        self.root.geometry('1180x2000')
         # Set a custom font
         self.custom_font = ('Space Grotesk', 18)
 
@@ -224,7 +224,6 @@ class ChatBotGUI:
         self.text_area = scrolledtext.ScrolledText(self.root, wrap=tk.WORD, width=20, height=20, font=self.custom_font,
                                                    bg='#242323')
         self.text_area.pack(padx=10, pady=15, fill=tk.BOTH, expand=True)
-
         # Entry for user input
         self.user_input = tk.Entry(self.root, width=40, font=self.custom_font)
                                   
@@ -234,7 +233,7 @@ class ChatBotGUI:
         # Send button
         self.send_button = tk.Button(self.root, text="Send", command=self.send_question, font=self.custom_font,
                                      bg='#32CD32', fg='black')
-        self.send_button.pack(pady=20)
+        self.send_button.pack(pady=10)
         self.root.bind('<Return>', lambda event=None: self.send_question())
 
     def send_question(self):
@@ -246,7 +245,7 @@ class ChatBotGUI:
 
         # Insert user and bot messages with different colors
         self.text_area.insert(tk.END, f"You: {user_question}\n", 'user_message')
-        self.text_area.insert(tk.END, f"Dev AI: {self.chatbot.bot_response}\n", 'bot_message')
+        self.text_area.insert(tk.END, f"Buddy Bot: {self.chatbot.bot_response}\n", 'bot_message')
         self.text_area.yview(tk.END)
 
 
@@ -261,8 +260,8 @@ def main():
     root.option_add('*TButton*Font', custom_font)
 
     # Style for user message
-    chatbot_gui.text_area.tag_configure('user_message', foreground='white',  spacing3=6)
-    chatbot_gui.text_area.tag_configure('bot_message', foreground='#7DF9FF', spacing3=6)
+    chatbot_gui.text_area.tag_configure('user_message', foreground='white',  spacing3=7)
+    chatbot_gui.text_area.tag_configure('bot_message', foreground='#7DF9FF', spacing3=7)
 
     # Set font for existing widgets (if needed)
     chatbot_gui.text_area.configure(font=custom_font)
@@ -273,5 +272,7 @@ def main():
 
 # Call the main function to start the application
 main()
+
+
 
 
