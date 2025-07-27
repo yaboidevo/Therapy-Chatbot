@@ -66,7 +66,8 @@ class ChatBot:
         self.user_response = question.lower()
 
     def generate_response(self):
-        api_key = '8e090ef93ef571938d58ffe34f52bbc7'
+        api_key = 
+    
         city = "Atlanta"
         weather_data = get_weather(api_key, city)
         temperature = weather_data["main"]["temp"]
